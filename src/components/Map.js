@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactMapGL, { Marker } from "react-map-gl";
+import services from "../services";
 
 const Map = () => {
   const [viewport, setViewport] = useState({
@@ -8,6 +9,16 @@ const Map = () => {
     width: "100vw",
     height: "100vh",
     zoom: 10,
+  });
+
+  const [data, setData] = useState(
+    services.getOfficeAddress("Киев").then((data) => {
+      return data;
+    })
+  );
+
+  useEffect(() => {
+    console.log(data);
   });
 
   return (
