@@ -7,6 +7,5 @@
 
  Now the project is filled with data on Ottawa's skateparks
 
-***
-
+Lesson:
 > Always check that the API works before coding
