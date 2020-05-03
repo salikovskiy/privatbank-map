@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from "react";
 import ReactMapGL, { Marker } from "react-map-gl";
-import services from "../services";
+import * as data from "../data.json";
+// import services from "../services";
 
 const Map = () => {
   const [viewport, setViewport] = useState({
-    latitude: 50.4501,
-    longitude: 30.523399,
+    latitude: 45.4211,
+    longitude: -75.6903,
     width: "100vw",
     height: "100vh",
     zoom: 10,
   });
 
-  const [data, setData] = useState(
-    services.getOfficeAddress("Киев").then((data) => {
-      return data;
-    })
-  );
-
-  useEffect(() => {
-    console.log(data);
-  });
+  // PrivatBank API doesn't work
+  // const [data, setData] = useState(
+  //   services.getOfficeAddress("Киев").then((data) => {
+  //     return data;
+  //   })
+  // );
+  // useEffect(() => {
+  //   console.log(data);
+  // });
 
   return (
     <ReactMapGL
@@ -30,7 +31,19 @@ const Map = () => {
         setViewport(viewport);
       }}
     >
-      markers here
+      {data.features.map((park) => (
+        <Marker
+          key={park.properties.PARK_ID}
+          latitude={park.geometry.coordinates[1]}
+          longitude={park.geometry.coordinates[0]}
+        >
+          <img
+            src="/placeholder.svg"
+            alt="Skateboard icon"
+            style={{ width: "20px", height: "20px" }}
+          />
+        </Marker>
+      ))}
     </ReactMapGL>
   );
 };
